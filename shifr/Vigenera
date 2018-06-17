@@ -1,0 +1,17 @@
+#include <stdio.h>
+#include <string.h>
+
+int main(){
+	int i;
+	char str[200];
+	char* shifr;
+	char* key;
+	fgets(str, 200, stdin);
+	str[strlen(str)-1] = '\0';
+	shifr = strtok(str, " ");
+	key = strtok(NULL, " "); 
+	for (i = 0; i < strlen(shifr); i++){
+		shifr[i] = (shifr[i] - key[i%strlen(key)] + 26) % 26 + 'a';
+	}
+	printf ("%s", shifr);
+}
