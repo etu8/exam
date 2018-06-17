@@ -15,13 +15,21 @@ int main(){
 	}
 	for(int i=0;i<counter;i++){
 		for(int j=strlen(words[i])-1;j>=0;j--){
-			if(isalpha(words[i][j])){
-				if(strlen(words[i]-1)==j)
+			if(!isdigit(words[i][j])){
+				if(strlen(words[i]-1) == j){
+					if(isalpha(words[i][j]))
+						printf("%c ",toupper(words[i][j]));
+					else
 					printf("%c ",toupper(words[i][j]));
-				else
-					printf("%c",toupper(words[i][j]));
+				}
+				else{
+					if(isalpha(words[i][j]))
+						printf("%c",toupper(words[i][j]));
+					else
+						printf("%c",toupper(words[i][j]));
+				}
 			}
 		}
-	}
+	}	
 	return 0;
 }
