@@ -1,0 +1,69 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <ctype.h>
+#include <string.h>
+#define WORD_LEN 32
+#define DICT_END "ugabuga"
+
+struct dictionary {
+	char word[WORD_LEN];
+	char translation[WORD_LEN];
+	struct dictionary *next;
+};
+
+struct dictionary* get_dict(int* size)
+{
+	int i = -1;
+	int n = 20;
+	struct dictionary* dict = (struct dictionary *)malloc(n * sizeof(struct dictionary));
+	do
+	{
+		i++;
+		if (i == n)
+		{
+			n += 10;
+			dict = (struct dictionary *)realloc(dict, n * sizeof(struct dictionary));
+		}
+		scanf("%s", dict[i].word);
+		if (strncmp(dict[i].word, DICT_END, WORD_LEN))
+			scanf(" %s\n", dict[i].translation);
+	}
+	while(strncmp(dict[i].word, DICT_END, WORD_LEN));
+	*size = i;
+	scanf("\n");
+	return dict;
+}
+
+void translate(char *message, struct dictionary* dict, int size)
+{
+	int check = 0;
+	char* word = strtok(message, " \n");
+	while (word)
+	{
+		for(int i = 0; i < size; i++)
+			if (strncmp(word, dict[i].word, WORD_LEN) == 0)
+			{
+				printf ("%s ", dict[i].translation);
+				check = 1;
+				break;
+			}
+		if (check == 0)
+			printf ("<unknown> ");
+		else
+			check = 0;
+		word = strtok(NULL, " \n");
+	}
+	
+}
+
+int main()
+{
+	int size = 0;
+	struct dictionary* dict = get_dict(&size);
+	char message[1000];
+	fgets(message, 1000, stdin);
+	for (int i = 0; i < strlen(message); i++)
+		message[i] = tolower(message[i]);
+	translate(message, dict, size);
+	free(dict);
+}
