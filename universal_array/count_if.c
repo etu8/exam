@@ -18,7 +18,7 @@ int compare_int(const void * a) {
 int compare_double(const void * a) {
   double val=(*(const double*)a);
   int intval=val;
-  if((val-intval)==0)
+  if(val>intval == intval>val)
     return compare_int(&intval);
   else
     return -1;
