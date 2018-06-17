@@ -17,7 +17,7 @@ int compare_double(const void * a) {
 
 }
 
-size_t universalMax(const void * base, size_t num, size_t size, int(*cmp)(const void *)) {
+size_t universalSum(const void * base, size_t num, size_t size, int(*cmp)(const void *)) {
     const char * pbase = (const char *)base;
     int i;
     int sum=0;
@@ -52,6 +52,6 @@ int main() {
     }
     for (int i = 0; i < N; ++i)
         scanf(format_string, array + i * size);
-    printf("%zd", universalMax(array, N, size, compare));
+    printf("%zd", universalSum(array, N, size, compare));
     return 0;
 }
