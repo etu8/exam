@@ -1,0 +1,56 @@
+//ВЫДАЕТ ВАРНИНГ ПРИ СЧИТЫВАНИИ, МОЖНО ПОФИКСИТЬ, ДОБАВИВ char* format = ("%d or %lf)
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+
+#define N 20
+
+int compare_int(const void * a) {
+    if(*(int*)a % 2 != 0 && *(int*)a %3 == 0)
+      return 0;
+    else
+    return 1;
+}
+
+int compare_double(const void * a) {
+  double b = *(double*)a;
+  int c = b;
+  if((c>b) - (b>c) == 0){
+    return compare_int(&c);
+  }
+  return 1;
+}
+
+int count_if(int * arr, int num, int size, int(*cmp)(const void *)) {
+    const char * arr1 = (const char *)arr;
+    int count = 0;
+    int i;
+    for (i = 0; i < num; i++)
+        if (cmp(arr1 + i * size) == 0) 
+            count++;
+    return count;
+}
+
+int main() {
+    int size;
+    scanf("%d", &size);
+    int (*compare)(const void *);
+    void * array;
+    char * format_string;
+    switch (size) {
+    case 4:
+        array = malloc(N * sizeof(int));
+		for (int i = 0; i < N; ++i)
+        	scanf(" %d", array + i * size);
+    	printf("%d\n", count_if(array, N, size, compare_int));
+        break;
+    case 8:
+        array = malloc(N * sizeof(double));
+		for (int i = 0; i < N; ++i)
+        	scanf(" %lf", array + i * size);
+    	printf("%d\n", count_if(array, N, size, compare_double));
+        break;
+    }
+    return 0;
+}
