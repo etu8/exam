@@ -27,12 +27,10 @@ int main()
 
     char temp_ch;
     for(int j=0; j<i; j++) {
-        if(!strchr(words[j], '1')) {
-            for(unsigned int k=0; k<strlen(words[j])/2; k++) {
-                temp_ch = words[j][k];
-                words[j][k] = words[j][strlen(words[j])- k - 1];
-                words[j][strlen(words[j])- k - 1] = temp_ch;
-            }
+        for(unsigned int k=0; k<strlen(words[j])/2; k++) {
+            temp_ch = words[j][k];
+            words[j][k] = words[j][strlen(words[j])- k - 1];
+            words[j][strlen(words[j])- k - 1] = temp_ch;
         }
     }
 
