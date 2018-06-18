@@ -24,7 +24,7 @@ int main(){
 	for(i=0;i<7;i++){
 		for(j=0;j<M;j++){
 			if(num[i]==pairs[j].n){
-				text[k]=pairs[i].c;
+				text[k]=pairs[j].c;
 				count++;
 			}
 		}
