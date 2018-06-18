@@ -3,7 +3,7 @@
 #include <string.h>
 #include <ctype.h>
 
-#define N 24
+#define N 100
 
 int main()
 {
@@ -17,9 +17,34 @@ int main()
             str[i] = toupper(str[i]);
     }
 
-    for(int i=strlen(str)-1; i>=0; i--) {
-        if(str[i] != '1')
-            printf("%c", str[i]);
+    int i = 0;
+    char** words = (char**) malloc(sizeof(char*)*N);
+    words[i] = strtok(str, " \n");
+    while(words[i] != NULL) {
+        i++;
+        words[i] = strtok(NULL, " \n");
+    }
+
+    char temp_ch;
+    for(int j=0; j<i; j++) {
+        if(!strchr(words[j], '1')) {
+            for(unsigned int k=0; k<strlen(words[j])/2; k++) {
+                temp_ch = words[j][k];
+                words[j][k] = words[j][strlen(words[j])- k - 1];
+                words[j][strlen(words[j])- k - 1] = temp_ch;
+            }
+        }
+    }
+
+    char* res = (char*) malloc(sizeof(char)*N);
+    for(int j=0; j<i; j++) {
+        strcat(res, " ");
+        strcat(res, words[j]);
+    }
+
+    for(unsigned int j=1; j<strlen(res); j++) {
+        if(res[j] != '1')
+            printf("%c", res[j]);
     }
 
     return 0;
