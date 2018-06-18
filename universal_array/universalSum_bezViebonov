@@ -1,0 +1,48 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <ctype.h>
+
+#define N 20
+
+int compare_char(const void* a){
+    return *(const char*)a;
+}
+
+int compare_int(const void * a) {
+    return *(const int*)a;
+}
+
+
+int universalSum(const void * arr, int num, int size, int(*cmp)(const void *)) {
+    const char * arr1 = (const char *)arr;
+    int i;
+    int sum=0;
+    for (i = 0; i < num; ++i)
+        sum+=cmp(arr1+i*size);
+    return sum;
+}
+
+int main() {
+    int size;
+    scanf("%d", &size);
+    void * array;
+    //char * format_string;
+    switch (size) {
+    case 1:
+        array = malloc(N * sizeof(char));
+        //format_string = " %c";
+	for (int i = 0; i < N; i++)
+        	scanf(" %c", array + i * size);
+    	printf("%d\n", universalSum(array, N, size, compare_char));
+        break;
+    case 4:
+        array = malloc(N * sizeof(int));
+        //format_string = " %d";
+        for (int i = 0; i < N; i++)
+        	scanf(" %d", array + i * size);
+    	printf("%d\n", universalSum(array, N, size, compare_int));
+        break;
+
+    }
+    return 0;
+}
