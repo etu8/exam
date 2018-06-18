@@ -10,11 +10,13 @@ typedef struct Book{
 
 int cmp(const void* a, const void* b){
 	int cmpname=strcmp(((Book*)b)->name,((Book*)a)->name);
-	int cmpauthor=strcmp(((Book*)a)->author,((Book*)b)->author);
+	int cmpauthor=strcmp(((Book*)b)->author,((Book*)a)->author);
 	int cmppages=((Book*)b)->pages-((Book*)a)->pages;
-	if(cmpname==0)
+	if(cmpname!=0)
+		return cmpname;
+	else if(cmpname==0)
 		return cmpauthor;
-	if(cmpname==cmpauthor)
+	else
 		return cmppages;
 }
 
@@ -27,7 +29,7 @@ int main(){
 	}
 	qsort(books, booksCount, sizeof(Book), cmp);
 	for(int i=0;i<booksCount;i++)
-		printf("%s %s %u %s",books[i].name, books[i].author, books[i].pages, books[i].isbn );
+		printf("%s %s %u %s ",books[i].name, books[i].author, books[i].pages, books[i].isbn );
 	return 0;
 }
 
